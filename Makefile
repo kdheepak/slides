@@ -8,6 +8,7 @@ all: slides
 slides:
 	pandoc -t revealjs \
 	--standalone \
+	--template=./static/html/default.revealjs \
 	--filter=./scripts/fix-headers.py \
 	--no-highlight \
 	--slide-level=1 \

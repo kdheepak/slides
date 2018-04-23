@@ -57,8 +57,6 @@ def fix_header_level(elem, doc):
             preblock.append(pf.RawBlock("</section>"))
         if doc.is_in_section is True:
             doc.is_in_subsection = True
-            content = elem.content
-            elem.content = []
             return [
                 *preblock,
                 pf.RawBlock("<section>"),
