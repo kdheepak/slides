@@ -40,9 +40,15 @@ def fix_header_level(elem, doc):
             content = elem.content
             elem.content = []
             doc.is_changed = True
+
+            attributes = []
+            for k, v in elem.attributes.items():
+                attributes.append("data-{}={}".format(k, v))
+            s = pf.RawBlock("<section {}>".format(" ".join(attributes)))
+
             return [
                 *preblock,
-                pf.RawBlock("<section>"),
+                s,
                 pf.Header(*content, level=2), # TODO: convert to H1?
             ]
         else:
@@ -57,9 +63,13 @@ def fix_header_level(elem, doc):
             preblock.append(pf.RawBlock("</section>"))
         if doc.is_in_section is True:
             doc.is_in_subsection = True
+            attributes = []
+            for k, v in elem.attributes.items():
+                attributes.append("data-{}={}".format(k, v))
+            s = pf.RawBlock("<section {}>".format(" ".join(attributes)))
             return [
                 *preblock,
-                pf.RawBlock("<section>"),
+                s,
                 elem
             ]
 
